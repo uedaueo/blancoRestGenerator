@@ -72,6 +72,13 @@ public class BlancoRestGeneratorObjectsInfo {
                     + BlancoRestGeneratorConstants.OBJECT_SUBDIRECTORY);
         }
 
+        /*
+         * まず始めにすべてのシートを検索して，クラス名とpackage名のリストを作ります．
+         * php形式の定義書では，クラスを指定する際にpackage名が指定されていないからです．
+         */
+        BlancoValueObjectXmlParser.classList =
+                BlancoValueObjectXmlParser.createClassListFromSheets(fileMeta3);
+
         for (int index = 0; index < fileMeta3.length; index++) {
             if (fileMeta3[index].getName().endsWith(".xml") == false) {
                 continue;

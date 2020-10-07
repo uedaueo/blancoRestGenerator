@@ -21,13 +21,13 @@ blancoRestGenerator はJava によるRestful API の電文と電文処理を生�
  > - ant compile
  > - ant jar : ここで作成されたjarファイルを各プロジェクトで使用します．
 
-##開発者
+## 開発者
 うえだうえお(tueda)
 
-##ライセンス
+## ライセンス
  blancoRest は ライセンス として GNU Lesser General Public License を採用しています。
 
-##依存するライブラリ
+## 依存するライブラリ
 blancoRestは下記のライブラリを利用しています。
 ※各オープンソース・プロダクトの提供者に感謝します。
 
@@ -47,9 +47,7 @@ blancoRestは下記のライブラリを利用しています。
          メタ情報ファイルを読み込む際に利用しています。
    ライセンス: GNU Lesser General Public License
 
-==============
-設定ファイル
-==============
+## 設定ファイル
 
 /etc/blancorest/config.xml を配置します。
 
