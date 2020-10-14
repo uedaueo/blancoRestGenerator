@@ -12,11 +12,10 @@ package blanco.restgenerator.task;
 import blanco.cg.BlancoCgSupportedLang;
 import blanco.restgenerator.BlancoRestGeneratorConstants;
 import blanco.restgenerator.BlancoRestGeneratorMeta2Xml;
-import blanco.restgenerator.BlancoRestGeneratorObjectsInfo;
+import blanco.restgenerator.BlancoRestGeneratorUtil;
 import blanco.restgenerator.BlancoRestGeneratorXml2SourceFile;
 import blanco.restgenerator.resourcebundle.BlancoRestGeneratorResourceBundle;
 import blanco.restgenerator.task.valueobject.BlancoRestGeneratorProcessInput;
-import blanco.valueobject.BlancoValueObjectConstants;
 
 import javax.xml.transform.TransformerException;
 import java.io.File;
@@ -41,6 +40,38 @@ public class BlancoRestGeneratorProcessImpl implements
             if (fileMetadir.exists() == false) {
                 throw new IllegalArgumentException(fBundle
                         .getAnttaskErr001(input.getMetadir()));
+            }
+
+            /*
+             * 改行コードを決定します。
+             */
+            String LF = "\n";
+            String CR = "\r";
+            String CRLF = CR + LF;
+            String lineSeparatorMark = input.getLineSeparator();
+            String lineSeparator = "";
+            if ("LF".equals(lineSeparatorMark)) {
+                lineSeparator = LF;
+            } else if ("CR".equals(lineSeparatorMark)) {
+                lineSeparator = CR;
+            } else if ("CRLF".equals(lineSeparatorMark)) {
+                lineSeparator = CRLF;
+            }
+            if (lineSeparator.length() != 0) {
+                System.setProperty("line.separator", lineSeparator);
+                if (input.getVerbose()) {
+                    System.out.println("lineSeparator try to change to " + lineSeparatorMark);
+                    String newProp = System.getProperty("line.separator");
+                    String newMark = "other";
+                    if (LF.equals(newProp)) {
+                        newMark = "LF";
+                    } else if (CR.equals(newProp)) {
+                        newMark = "CR";
+                    } else if (CRLF.equals(newProp)) {
+                        newMark = "CRLF";
+                    }
+                    System.out.println("New System Props = " + newMark);
+                }
             }
 
             /*
@@ -72,13 +103,27 @@ public class BlancoRestGeneratorProcessImpl implements
             }
 
             /*
+             * 共通の設定
+             */
+            BlancoRestGeneratorUtil.encoding = input.getEncoding();
+            BlancoRestGeneratorUtil.isVerbose = input.getVerbose();
+            BlancoRestGeneratorUtil.packageSuffix = input.getPackageSuffix();
+            BlancoRestGeneratorUtil.overridePackage = input.getOverridePackage();
+            BlancoRestGeneratorUtil.overrideLocation = input.getOverrideLocation();
+            BlancoRestGeneratorUtil.voPackageSuffix = input.getVoPackageSuffix();
+            BlancoRestGeneratorUtil.voOverridePackage = input.getVoOverridePackage();
+            BlancoRestGeneratorUtil.ignoreDefault = input.getIgnoreDefault();
+            BlancoRestGeneratorUtil.ignoreAnnotation = input.getIgnoreAnnotation();
+            BlancoRestGeneratorUtil.telegramPackage = input.getTelegrampackage();
+            BlancoRestGeneratorUtil.processBaseClass = input.getProcessBaseClass();
+            BlancoRestGeneratorUtil.serverType = input.getServerType();
+            BlancoRestGeneratorUtil.createServiceMethod = !input.getClient();
+
+            /*
              * validator を作る時に使うために，
              * ValueObject で既に定義されている（はずの）オブジェクトを取得しておく
              */
-            final BlancoRestGeneratorObjectsInfo objectsInfo = new BlancoRestGeneratorObjectsInfo();
-            objectsInfo.setEncoding(input.getEncoding());
-            objectsInfo.setVerbose(input.getVerbose());
-            objectsInfo.process(input);
+            BlancoRestGeneratorUtil.processValueObjects(input);
 
             // テンポラリディレクトリを作成。
             new File(input.getTmpdir()
@@ -102,9 +147,9 @@ public class BlancoRestGeneratorProcessImpl implements
                 final BlancoRestGeneratorXml2SourceFile xml2source = new BlancoRestGeneratorXml2SourceFile();
                 xml2source.setEncoding(input.getEncoding());
                 xml2source.setSheetLang(new BlancoCgSupportedLang().convertToInt(input.getSheetType()));
+                xml2source.setTargetStyleAdvanced(isTargetStyleAdvanced);
                 xml2source.setVerbose(input.getVerbose());
-                xml2source.process(fileMeta2[index], "true".equals(input
-                        .getNameAdjust()), new File(strTarget));
+                xml2source.process(fileMeta2[index], true, new File(strTarget));
             }
         } catch (IOException ex) {
             throw new IllegalArgumentException(ex.toString());
