@@ -44,20 +44,6 @@ import java.util.Set;
  */
 public class BlancoRestGeneratorXml2SourceFile {
 
-    /**
-     * HTTPメソッド名のint表現
-     */
-    private static final int HTTP_METHOD_GET = 0;
-    private static final int HTTP_METHOD_POST = 1;
-    private static final int HTTP_METHOD_PUT = 2;
-    private static final int HTTP_METHOD_DELETE = 3;
-
-    /**
-     * INPUT,OUTPUTのint表現
-     */
-    private static final int TELEGRAM_INPUT = 0;
-    private static final int TELEGRAM_OUTPUT = 1;
-
     private boolean fVerbose = false;
     public void setVerbose(boolean argVerbose) {
         this.fVerbose = argVerbose;
@@ -171,6 +157,10 @@ public class BlancoRestGeneratorXml2SourceFile {
             return;
         }
 
+        if (this.isVerbose()) {
+            System.out.println("Parse done. Now generate!!! process number =  " + processStructures.length);
+        }
+
         for (int index = 0; index < processStructures.length; index++) {
             BlancoRestGeneratorTelegramProcess processStructure = processStructures[index];
             // 得られた情報から Java コードを生成します。
@@ -179,14 +169,23 @@ public class BlancoRestGeneratorXml2SourceFile {
     }
 
     private void generate(final BlancoRestGeneratorTelegramProcess argProcessStructure, final File argDirectoryTarget) {
+        if (this.isVerbose()) {
+            System.out.println("generate START!!!");
+        }
 
         // まず電文を生成します。
         Set<String> methodKeys = argProcessStructure.getListTelegrams().keySet(); // parse 時点で check しているので null はないはず
         for (String methodKey : methodKeys) {
+            if (this.isVerbose()) {
+                System.out.println("METHOD = " + methodKey);
+            }
             HashMap<String, BlancoRestGeneratorTelegram> kindMap =
                     argProcessStructure.getListTelegrams().get(methodKey);
             Set<String> kindKeys = kindMap.keySet(); // parse 時点で check しているので null はないはず
             for (String kindKey : kindKeys) {
+                if (this.isVerbose()) {
+                    System.out.println("Kined = " + kindKey);
+                }
                 generateTelegram(kindMap.get(kindKey), argDirectoryTarget);
             }
         }
@@ -380,13 +379,13 @@ public class BlancoRestGeneratorXml2SourceFile {
         cgProcessorMethod.setAccess("protected");
         cgProcessorMethod.setAbstract(true);
 
-        BlancoRestGeneratorTelegram input = argTelegrams.get(TELEGRAM_INPUT);
-        BlancoRestGeneratorTelegram output = argTelegrams.get(TELEGRAM_OUTPUT);
+        BlancoRestGeneratorTelegram input = argTelegrams.get(BlancoRestGeneratorConstants.TELEGRAM_INPUT);
+        BlancoRestGeneratorTelegram output = argTelegrams.get(BlancoRestGeneratorConstants.TELEGRAM_OUTPUT);
         //System.out.println("### type = " + input.getTelegramType());
 //        System.out.println("(createAbstractMethod)### method = " + output.getTelegramMethod());
 
-        String packageNameIn = null;
-        String packageNameOut = null;
+        String packageNameIn = input.getPackage();
+        String packageNameOut = output.getPackage();
         if (BlancoStringUtil.null2Blank(BlancoRestGeneratorUtil.packageSuffix).length() > 0) {
             packageNameIn = input.getPackage() + "." + BlancoRestGeneratorUtil.packageSuffix;
             packageNameOut = output.getPackage() + "." + BlancoRestGeneratorUtil.packageSuffix;
@@ -432,13 +431,13 @@ public class BlancoRestGeneratorXml2SourceFile {
         fCgClass.getMethodList().add(cgExecutorMethod);
         cgExecutorMethod.setAccess("protected");
 
-        BlancoRestGeneratorTelegram input = argTelegrams.get(TELEGRAM_INPUT);
-        BlancoRestGeneratorTelegram output = argTelegrams.get(TELEGRAM_OUTPUT);
+        BlancoRestGeneratorTelegram input = argTelegrams.get(BlancoRestGeneratorConstants.TELEGRAM_INPUT);
+        BlancoRestGeneratorTelegram output = argTelegrams.get(BlancoRestGeneratorConstants.TELEGRAM_OUTPUT);
         //System.out.println("### type = " + input.getTelegramType());
 //        System.out.println("(createExecuteMethod)### method = " + output.getTelegramMethod());
 
-        String packageNameIn = null;
-        String packageNameOut = null;
+        String packageNameIn = input.getPackage();
+        String packageNameOut = output.getPackage();
         if (BlancoStringUtil.null2Blank(BlancoRestGeneratorUtil.packageSuffix).length() > 0) {
             packageNameIn = input.getPackage() + "." + BlancoRestGeneratorUtil.packageSuffix;
             packageNameOut = output.getPackage() + "." + BlancoRestGeneratorUtil.packageSuffix;
@@ -728,7 +727,7 @@ public class BlancoRestGeneratorXml2SourceFile {
         expandMethodToString(argTelegramStructure);
 
         // 収集された情報を元に実際のソースコードを自動生成。
-        BlancoCgTransformerFactory.getKotlinSourceTransformer().transform(
+        BlancoCgTransformerFactory.getJavaSourceTransformer().transform(
                 fCgSourceFile, fileBlancoMain);
     }
 

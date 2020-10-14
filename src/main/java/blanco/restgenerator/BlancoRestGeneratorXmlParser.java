@@ -70,6 +70,10 @@ public class BlancoRestGeneratorXmlParser {
                 System.out.println("praser !!! NO telegramStructureMap !!!");
             }
             return null;
+        } else {
+            if (this.isVerbose()) {
+                System.out.println("parser !!! got telegrams = " + telegramStructureMap.size());
+            }
         }
 
         // 次に電文処理を取得します。
@@ -592,6 +596,9 @@ public class BlancoRestGeneratorXmlParser {
         final List<BlancoXmlElement> listSheet = BlancoXmlBindingUtil
                 .getElementsByTagName(argElementRoot, "sheet");
         final int sizeListSheet = listSheet.size();
+        if (this.isVerbose()) {
+            System.out.println("Sheet Size Is " + sizeListSheet);
+        }
         for (int index = 0; index < sizeListSheet; index++) {
             // おのおののシートを処理します。
             final BlancoXmlElement elementSheet = (BlancoXmlElement) listSheet
@@ -629,16 +636,16 @@ public class BlancoRestGeneratorXmlParser {
                         .getMeta2xmlProcessCommon());
         if (elementCommon == null) {
             // commonが無い場合には、このシートの処理をスキップします。
-            // System.out.println("BlancoRestXmlSourceFile#processTelegramProcess !!! NO COMMON !!!");
+//             System.out.println("BlancoRestXmlSourceFile#processTelegramProcess !!! NO COMMON !!!");
             return null;
         }
 
         final String name = BlancoXmlBindingUtil.getTextContent(
                 elementCommon, "name");
 
-        if (BlancoStringUtil.null2Blank(name).trim().length() == 0) {
+        if (BlancoStringUtil.null2Blank(name).length() == 0) {
             // nameが空の場合には処理をスキップします。
-            // System.out.println("BlancoRestXmlSourceFile#processTelegramProcess !!! NO NAME !!!");
+             System.out.println("BlancoRestXmlSourceFile#processTelegramProcess !!! NO NAME !!!");
             return null;
         }
 

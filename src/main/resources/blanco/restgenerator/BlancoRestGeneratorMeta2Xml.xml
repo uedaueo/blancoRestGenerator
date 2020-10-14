@@ -142,25 +142,25 @@
 
             <propertyblock name="blancotelegramprocess-common" waitY="1">
                 <startstring>電文処理定義・共通</startstring>
-                <propertykey name="name" waitX="1">
+                <propertykey name="name" waitX="3">
                     <value>電文処理ID</value>
                 </propertykey>
-                <propertykey name="description" waitX="2">
+                <propertykey name="description" waitX="3">
                     <value>説明</value>
                 </propertykey>
-                <propertykey name="noAuthentication" waitX="1">
+                <propertykey name="noAuthentication" waitX="3">
                     <value>認証が不要なAPI</value>
                 </propertykey>
-                <propertykey name="webServiceId" waitX="1">
+                <propertykey name="webServiceId" waitX="3">
                     <value>ウェブサービスID</value>
                 </propertykey>
-                <propertykey name="telegramProcessNamespace" waitX="1">
+                <propertykey name="telegramProcessNamespace" waitX="3">
                     <value>名前空間</value>
                 </propertykey>
-                <propertykey name="package" waitX="1">
+                <propertykey name="package" waitX="3">
                     <value>パッケージ</value>
                 </propertykey>
-                <propertykey name="location" waitX="1">
+                <propertykey name="location" waitX="3">
                     <value>ロケーション</value>
                 </propertykey>
                 <propertykey name="basedir" waitX="3">
@@ -205,10 +205,10 @@
 
             <propertyblock name="blancotelegramprocess-extends" waitY="1">
                 <startstring>電文処理定義・継承</startstring>
-                <propertykey name="superClass" waitX="2">
+                <propertykey name="superClass" waitX="3">
                     <value>クラス名</value>
                 </propertykey>
-                <propertykey name="package" waitX="2">
+                <propertykey name="package" waitX="3">
                     <value>パッケージ</value>
                 </propertykey>
             </propertyblock>
