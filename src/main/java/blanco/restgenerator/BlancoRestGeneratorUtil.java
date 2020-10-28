@@ -57,12 +57,13 @@ public class BlancoRestGeneratorUtil {
     public static boolean ignoreAnnotation = false;
     public static String telegramPackage = null;
     public static String processBaseClass = null;
+    public static String defaultExceptionClass = null;
     public static boolean createServiceMethod = false;
     public static String serverType = "tomcat";
 
     static public void processValueObjects(final BlancoRestGeneratorProcessInput input) throws IOException {
         if (isVerbose) {
-            System.out.println("BlancoRestGeneratorObjectsInfo : processValueObjects start !");
+            System.out.println("BlancoRestGeneratorUtil#processValueObjects : processValueObjects start !");
         }
 
         /* tmpdir はユニーク */
@@ -205,7 +206,7 @@ public class BlancoRestGeneratorUtil {
                 javaType = "java.lang.Object";
             } else {
                 /* この名前の package を探す */
-                String packageName = BlancoValueObjectUtil.searchPackageBySimpleName(phpType);
+                String packageName = BlancoRestGeneratorUtil.searchPackageBySimpleName(phpType);
                 if (packageName != null) {
                     javaType = packageName + "." + phpType;
                 }
@@ -231,5 +232,13 @@ public class BlancoRestGeneratorUtil {
             }
         }
         return packageName;
+    }
+
+    public static String getDefaultExceptionId() {
+        String exceptionName = BlancoRestGeneratorConstants.DEFAULT_EXCEPTION;
+        if (BlancoStringUtil.null2Blank(BlancoRestGeneratorUtil.defaultExceptionClass).length() > 0) {
+            exceptionName = BlancoRestGeneratorUtil.defaultExceptionClass;
+        }
+        return exceptionName;
     }
 }

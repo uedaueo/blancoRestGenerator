@@ -116,6 +116,7 @@ public class BlancoRestGeneratorProcessImpl implements
             BlancoRestGeneratorUtil.ignoreAnnotation = input.getIgnoreAnnotation();
             BlancoRestGeneratorUtil.telegramPackage = input.getTelegrampackage();
             BlancoRestGeneratorUtil.processBaseClass = input.getProcessBaseClass();
+            BlancoRestGeneratorUtil.defaultExceptionClass = input.getDefaultExceptionClass();
             BlancoRestGeneratorUtil.serverType = input.getServerType();
             BlancoRestGeneratorUtil.createServiceMethod = !input.getClient();
 

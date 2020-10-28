@@ -407,7 +407,7 @@ public class BlancoRestGeneratorXml2SourceFile {
          * デフォルトの例外（BlancoRestException）を throws に加える
          */
         BlancoCgType blancoCgType = new BlancoCgType();
-        blancoCgType.setName(BlancoRestGeneratorConstants.DEFAULT_EXCEPTION);
+        blancoCgType.setName(BlancoRestGeneratorUtil.getDefaultExceptionId());
         blancoCgType.setDescription(fBundle.getXml2sourceFileDefaultExceptionTypeLangdoc());
 
         BlancoCgException blancoCgException = new BlancoCgException();
@@ -460,7 +460,7 @@ public class BlancoRestGeneratorXml2SourceFile {
          * デフォルトの例外（BlancoRestException）を throws に加える
          */
         BlancoCgType blancoCgType = new BlancoCgType();
-        blancoCgType.setName(BlancoRestGeneratorConstants.DEFAULT_EXCEPTION);
+        blancoCgType.setName(BlancoRestGeneratorUtil.getDefaultExceptionId());
         blancoCgType.setDescription(fBundle.getXml2sourceFileDefaultExceptionTypeLangdoc());
 
         BlancoCgException blancoCgException = new BlancoCgException();
@@ -511,7 +511,7 @@ public class BlancoRestGeneratorXml2SourceFile {
          * デフォルトの例外（BlancoRestException）を throws に加える
          */
         BlancoCgType blancoCgType = new BlancoCgType();
-        blancoCgType.setName(BlancoRestGeneratorConstants.DEFAULT_EXCEPTION);
+        blancoCgType.setName(BlancoRestGeneratorUtil.getDefaultExceptionId());
         blancoCgType.setDescription(fBundle.getXml2sourceFileDefaultExceptionTypeLangdoc());
 
         BlancoCgException blancoCgException = new BlancoCgException();
@@ -526,7 +526,7 @@ public class BlancoRestGeneratorXml2SourceFile {
         // メソッドの実装
         //throw new BlancoRestException("GetMethod is not implemented in this api");
         ListLine.add(
-                "throw new " + BlancoRestGeneratorConstants.DEFAULT_EXCEPTION + "( " + BlancoCgLineUtil.getStringLiteralEnclosure(fTargetLang) +
+                "throw new " + BlancoRestGeneratorUtil.getDefaultExceptionId() + "( " + BlancoCgLineUtil.getStringLiteralEnclosure(fTargetLang) +
                         fBundle.getBlancorestErrorMsg05(argDefaultRequestId) + BlancoCgLineUtil.getStringLiteralEnclosure(fTargetLang)  +")" + BlancoCgLineUtil.getTerminator(fTargetLang));
     }
 
