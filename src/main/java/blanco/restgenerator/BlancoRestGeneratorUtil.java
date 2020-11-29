@@ -205,6 +205,18 @@ public class BlancoRestGeneratorUtil {
             } else
             if ("object".equalsIgnoreCase(phpType)) {
                 javaType = "java.lang.Object";
+            } else
+            if ("ArrayList".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+                javaType = "java.util.ArrayList";
+            } else
+            if ("List".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+                javaType = "java.util.List";
+            } else
+            if ("Map".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+                javaType = "java.util.Map";
+            } else
+            if ("HashMap".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+                javaType = "java.util.HashMap";
             } else {
                 /* この名前の package を探す */
                 String packageName = BlancoRestGeneratorUtil.searchPackageBySimpleName(phpType);

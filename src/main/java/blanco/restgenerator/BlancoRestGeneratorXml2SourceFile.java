@@ -734,66 +734,76 @@ public class BlancoRestGeneratorXml2SourceFile {
     /**
      * フィールドを展開します。
      *
-     * @param fieldLook
+     * @param argFieldStructure
      */
     private void expandField(
-            final BlancoRestGeneratorTelegramField fieldLook) {
-        String fieldName = fieldLook.getName();
+            final BlancoRestGeneratorTelegramField argFieldStructure) {
+        String fieldName = argFieldStructure.getName();
         if (fNameAdjust) {
             fieldName = BlancoNameAdjuster.toClassName(fieldName);
         }
 
         switch (fSheetLang) {
             case BlancoCgSupportedLang.PHP:
-                if (fieldLook.getFieldType() == "java.lang.Integer") fieldLook.setFieldType("java.lang.Long");
+                if (argFieldStructure.getFieldType() == "java.lang.Integer") {
+                    argFieldStructure.setFieldType("java.lang.Long");
+                }
                 break;
             /* 対応言語を増やす場合はここに case を追記します */
         }
 
         final BlancoCgField cgField = fCgFactory.createField("f" + fieldName,
-                fieldLook.getFieldType(), "");
+                argFieldStructure.getFieldType(), "");
         fCgClass.getFieldList().add(cgField);
+        /* generics に対応する */
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getFieldGeneric()).length() > 0) {
+            cgField.getType().setGenerics(argFieldStructure.getFieldGeneric());
+        }
+
         cgField.setAccess("private");
 
-        cgField.setDescription(fBundle.getXml2sourceFileFieldName(fieldLook
+        cgField.setDescription(fBundle.getXml2sourceFileFieldName(argFieldStructure
                 .getName()));
         cgField.getLangDoc().getDescriptionList().add(
-                fBundle.getXml2sourceFileFieldType(fieldLook.getFieldType()));
-        if (BlancoStringUtil.null2Blank(fieldLook.getDescription()).length() > 0) {
+                fBundle.getXml2sourceFileFieldType(argFieldStructure.getFieldType()));
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getDescription()).length() > 0) {
             cgField.getLangDoc().getDescriptionList().add(
-                    fieldLook.getDescription());
+                    argFieldStructure.getDescription());
         }
     }
 
     /**
      * setメソッドを展開します。
      *
-     * @param fieldLook
+     * @param argFieldStructure
      */
     private void expandMethodSet(
-            final BlancoRestGeneratorTelegramField fieldLook) {
-        String fieldName = fieldLook.getName();
+            final BlancoRestGeneratorTelegramField argFieldStructure) {
+        String fieldName = argFieldStructure.getName();
         if (fNameAdjust) {
             fieldName = BlancoNameAdjuster.toClassName(fieldName);
         }
 
         final BlancoCgMethod cgMethod = fCgFactory.createMethod("set"
-                + fieldName, fBundle.getXml2sourceFileSetLangdoc01(fieldLook
+                + fieldName, fBundle.getXml2sourceFileSetLangdoc01(argFieldStructure
                 .getName()));
         fCgClass.getMethodList().add(cgMethod);
         cgMethod.setAccess("public");
         cgMethod.getLangDoc().getDescriptionList().add(
-                fBundle.getXml2sourceFileSetLangdoc02(fieldLook.getFieldType()));
+                fBundle.getXml2sourceFileSetLangdoc02(argFieldStructure.getFieldType()));
 
-        if (BlancoStringUtil.null2Blank(fieldLook.getDescription()).length() > 0) {
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getDescription()).length() > 0) {
             cgMethod.getLangDoc().getDescriptionList().add(
-                    fieldLook.getDescription());
+                    argFieldStructure.getDescription());
         }
 
-        cgMethod.getParameterList().add(
-                fCgFactory.createParameter("arg" + fieldName, fieldLook
-                        .getFieldType(), fBundle
-                        .getXml2sourceFileSetArgLangdoc(fieldLook.getName())));
+        BlancoCgParameter cgParameter = fCgFactory.createParameter("arg" + fieldName, argFieldStructure
+                .getFieldType(), fBundle
+                .getXml2sourceFileSetArgLangdoc(argFieldStructure.getName()));
+        cgMethod.getParameterList().add(cgParameter);
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getFieldGeneric()).length() > 0) {
+            cgParameter.getType().setGenerics(argFieldStructure.getFieldGeneric());
+        }
 
         // メソッドの実装
         final List<String> listLine = cgMethod.getLineList();
@@ -807,30 +817,33 @@ public class BlancoRestGeneratorXml2SourceFile {
     /**
      * getメソッドを展開します。
      *
-     * @param fieldLook
+     * @param argFieldStructure
      */
     private void expandMethodGet(
-            final BlancoRestGeneratorTelegramField fieldLook) {
-        String fieldName = fieldLook.getName();
+            final BlancoRestGeneratorTelegramField argFieldStructure) {
+        String fieldName = argFieldStructure.getName();
         if (fNameAdjust) {
             fieldName = BlancoNameAdjuster.toClassName(fieldName);
         }
 
         final BlancoCgMethod cgMethod = fCgFactory.createMethod("get"
-                + fieldName, fBundle.getXml2sourceFileGetLangdoc01(fieldLook
+                + fieldName, fBundle.getXml2sourceFileGetLangdoc01(argFieldStructure
                 .getName()));
         fCgClass.getMethodList().add(cgMethod);
         cgMethod.setAccess("public");
 
         cgMethod.getLangDoc().getDescriptionList().add(
-                fBundle.getXml2sourceFileGetLangdoc02(fieldLook.getFieldType()));
+                fBundle.getXml2sourceFileGetLangdoc02(argFieldStructure.getFieldType()));
 
-        cgMethod.setReturn(fCgFactory.createReturn(fieldLook.getFieldType(), fBundle
-                .getXml2sourceFileGetReturnLangdoc(fieldLook.getName())));
+        cgMethod.setReturn(fCgFactory.createReturn(argFieldStructure.getFieldType(), fBundle
+                .getXml2sourceFileGetReturnLangdoc(argFieldStructure.getName())));
 
-        if (BlancoStringUtil.null2Blank(fieldLook.getDescription()).length() > 0) {
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getDescription()).length() > 0) {
             cgMethod.getLangDoc().getDescriptionList().add(
-                    fieldLook.getDescription());
+                    argFieldStructure.getDescription());
+        }
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getFieldGeneric()).length() > 0) {
+            cgMethod.getReturn().getType().setGenerics(argFieldStructure.getFieldGeneric());
         }
 
         // メソッドの実装
@@ -846,17 +859,17 @@ public class BlancoRestGeneratorXml2SourceFile {
     /**
      * typeメソッドを展開します
      *
-     * @param fieldLook
+     * @param argFieldStructure
      */
     private void expandMethodType(
-            final BlancoRestGeneratorTelegramField fieldLook) {
-        String fieldName = fieldLook.getName();
+            final BlancoRestGeneratorTelegramField argFieldStructure) {
+        String fieldName = argFieldStructure.getName();
         if (fNameAdjust) {
             fieldName = BlancoNameAdjuster.toClassName(fieldName);
         }
 
         final BlancoCgMethod cgMethod = fCgFactory.createMethod("type"
-                + fieldName, fBundle.getXml2sourceFileGetLangdoc01(fieldLook
+                + fieldName, fBundle.getXml2sourceFileGetLangdoc01(argFieldStructure
                 .getName()));
         fCgClass.getMethodList().add(cgMethod);
         cgMethod.setAccess("public");
@@ -866,11 +879,11 @@ public class BlancoRestGeneratorXml2SourceFile {
                 fBundle.getXml2sourceFileTypeLangdoc02("java.lang.String"));
 
         cgMethod.setReturn(fCgFactory.createReturn("java.lang.String", fBundle
-                .getXml2sourceFileTypeReturnLangdoc(fieldLook.getName())));
+                .getXml2sourceFileTypeReturnLangdoc(argFieldStructure.getName())));
 
-        if (BlancoStringUtil.null2Blank(fieldLook.getDescription()).length() > 0) {
+        if (BlancoStringUtil.null2Blank(argFieldStructure.getDescription()).length() > 0) {
             cgMethod.getLangDoc().getDescriptionList().add(
-                    fieldLook.getDescription());
+                    argFieldStructure.getDescription());
         }
 
         // メソッドの実装
@@ -879,7 +892,9 @@ public class BlancoRestGeneratorXml2SourceFile {
         listLine
                 .add("return " +
                         BlancoCgLineUtil.getStringLiteralEnclosure(BlancoCgSupportedLang.JAVA) +
-                                fieldLook.getFieldType() +
+                                argFieldStructure.getFieldType() +
+                                (BlancoStringUtil.null2Blank(argFieldStructure.getFieldGeneric()).length() > 0 ?
+                                        "<" + argFieldStructure.getFieldGeneric() + ">" : "") +
                                 BlancoCgLineUtil.getStringLiteralEnclosure(BlancoCgSupportedLang.JAVA) +
                                 BlancoCgLineUtil.getTerminator(fTargetLang));
     }
