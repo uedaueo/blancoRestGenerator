@@ -55,6 +55,7 @@ public class BlancoRestGeneratorUtil {
     public static String voOverridePackage = null;
     public static boolean ignoreDefault = false;
     public static boolean ignoreAnnotation = false;
+    public static boolean ignoreImport = false;
     public static String telegramPackage = null;
     public static String processBaseClass = null;
     public static String defaultExceptionClass = null;

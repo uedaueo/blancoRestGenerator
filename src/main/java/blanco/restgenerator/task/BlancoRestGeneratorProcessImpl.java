@@ -114,6 +114,7 @@ public class BlancoRestGeneratorProcessImpl implements
             BlancoRestGeneratorUtil.voOverridePackage = input.getVoOverridePackage();
             BlancoRestGeneratorUtil.ignoreDefault = input.getIgnoreDefault();
             BlancoRestGeneratorUtil.ignoreAnnotation = input.getIgnoreAnnotation();
+            BlancoRestGeneratorUtil.ignoreImport = input.getIgnoreImport();
             BlancoRestGeneratorUtil.telegramPackage = input.getTelegrampackage();
             BlancoRestGeneratorUtil.processBaseClass = input.getProcessBaseClass();
             BlancoRestGeneratorUtil.defaultExceptionClass = input.getDefaultExceptionClass();

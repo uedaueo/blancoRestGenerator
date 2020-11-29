@@ -178,7 +178,7 @@ public class BlancoRestGeneratorXmlParser {
         final List<BlancoXmlElement> importList = BlancoXmlBindingUtil
                 .getElementsByTagName(argElementSheet,
                         fBundle.getMeta2xmlTelegramImport());
-        if (importList != null && importList.size() != 0) {
+        if (!BlancoRestGeneratorUtil.ignoreImport && (importList != null && importList.size() != 0)) {
             final BlancoXmlElement elementImportRoot = importList.get(0);
             this.parseTelegramImport(elementImportRoot, telegramStructure);
         }
