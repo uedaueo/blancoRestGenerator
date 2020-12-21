@@ -13,7 +13,6 @@ import blanco.cg.BlancoCgObjectFactory;
 import blanco.cg.BlancoCgSupportedLang;
 import blanco.cg.transformer.BlancoCgTransformerFactory;
 import blanco.cg.util.BlancoCgLineUtil;
-import blanco.cg.util.BlancoCgSourceUtil;
 import blanco.cg.valueobject.*;
 import blanco.commons.util.BlancoNameAdjuster;
 import blanco.commons.util.BlancoStringUtil;
@@ -21,11 +20,6 @@ import blanco.restgenerator.resourcebundle.BlancoRestGeneratorResourceBundle;
 import blanco.restgenerator.valueobject.BlancoRestGeneratorTelegram;
 import blanco.restgenerator.valueobject.BlancoRestGeneratorTelegramField;
 import blanco.restgenerator.valueobject.BlancoRestGeneratorTelegramProcess;
-import blanco.valueobject.valueobject.BlancoValueObjectClassStructure;
-import blanco.xml.bind.BlancoXmlBindingUtil;
-import blanco.xml.bind.BlancoXmlUnmarshaller;
-import blanco.xml.bind.valueobject.BlancoXmlDocument;
-import blanco.xml.bind.valueobject.BlancoXmlElement;
 
 import java.io.File;
 import java.io.IOException;
@@ -195,7 +189,9 @@ public class BlancoRestGeneratorXml2SourceFile {
          * 現時点では micronaut 向けの controller を生成します。
          * 将来的には tomcat 向けの abstract クラスにも対応します。
          */
-        generateProcess(argProcessStructure, argDirectoryTarget);
+        if (!BlancoRestGeneratorUtil.telegramsOnly) {
+            generateProcess(argProcessStructure, argDirectoryTarget);
+        }
     }
 
     /**

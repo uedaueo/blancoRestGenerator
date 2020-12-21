@@ -61,6 +61,7 @@ public class BlancoRestGeneratorUtil {
     public static String defaultExceptionClass = null;
     public static boolean createServiceMethod = false;
     public static String serverType = "tomcat";
+    public static boolean telegramsOnly = false;
 
     static public void processValueObjects(final BlancoRestGeneratorProcessInput input) throws IOException {
         if (isVerbose) {

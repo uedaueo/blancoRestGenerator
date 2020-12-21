@@ -120,6 +120,7 @@ public class BlancoRestGeneratorProcessImpl implements
             BlancoRestGeneratorUtil.defaultExceptionClass = input.getDefaultExceptionClass();
             BlancoRestGeneratorUtil.serverType = input.getServerType();
             BlancoRestGeneratorUtil.createServiceMethod = !input.getClient();
+            BlancoRestGeneratorUtil.telegramsOnly = input.getTelegramsOnly();
 
             /*
              * validator を作る時に使うために，
