@@ -285,6 +285,9 @@ public class BlancoRestGeneratorXml2SourceFile {
             }
         }
 
+        // ロケーションの設定
+        createLocationId(argProcessStructure);
+
         // isAuthenticationRequired メソッドの上書き
         overrideAuthenticationRequired(argProcessStructure);
 
@@ -601,6 +604,21 @@ public class BlancoRestGeneratorXml2SourceFile {
             listLine.add("return " + "\"" + packageName + "." + responseIdName + "\""
                     + BlancoCgLineUtil.getTerminator(fTargetLang));
         }
+    }
+
+    private void createLocationId(BlancoRestGeneratorTelegramProcess argProcessStructure) {
+        String locationDir = argProcessStructure.getLocation();
+        String apiId = argProcessStructure.getName();
+        String locationId = locationDir + "/" + apiId;
+
+        BlancoCgMethod cgMethod = fCgFactory.createMethod("getLocationId", "このAPIを呼び出すためのURLです。");
+        fCgClass.getMethodList().add(cgMethod);
+        cgMethod.getAnnotationList().add("Override");
+        cgMethod.setAccess("protected");
+        BlancoCgReturn cgReturn = fCgFactory.createReturn("java.lang.String", "このAPIを呼び出すためのURLです。");
+        cgMethod.setReturn(cgReturn);
+        List<String> lineList = cgMethod.getLineList();
+        lineList.add("return \"" + locationId + "\";");
     }
 
     /**
