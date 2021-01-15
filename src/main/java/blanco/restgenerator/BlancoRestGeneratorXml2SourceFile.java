@@ -607,9 +607,13 @@ public class BlancoRestGeneratorXml2SourceFile {
     }
 
     private void createLocationId(BlancoRestGeneratorTelegramProcess argProcessStructure) {
-        String locationDir = argProcessStructure.getLocation();
-        String apiId = argProcessStructure.getName();
-        String locationId = locationDir + "/" + apiId;
+        String location = argProcessStructure.getLocation();
+        String overrideLocation = argProcessStructure.getOverrideLocation();
+        if (overrideLocation != null && overrideLocation.length() > 0) {
+            location = overrideLocation;
+        }
+        String serviceId = argProcessStructure.getServiceId();
+        String locationId = location + "/" + serviceId;
 
         BlancoCgMethod cgMethod = fCgFactory.createMethod("getLocationId", "このAPIを呼び出すためのURLです。");
         fCgClass.getMethodList().add(cgMethod);
