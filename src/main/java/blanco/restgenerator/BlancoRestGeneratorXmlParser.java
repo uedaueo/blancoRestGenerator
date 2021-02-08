@@ -86,7 +86,7 @@ public class BlancoRestGeneratorXmlParser {
      * @param argElementRoot
      * @return
      */
-    private Map<String, BlancoRestGeneratorTelegram> parseTelegrams(final BlancoXmlElement argElementRoot) {
+    public Map<String, BlancoRestGeneratorTelegram> parseTelegrams(final BlancoXmlElement argElementRoot) {
 
         Map <String, BlancoRestGeneratorTelegram> telegramStructureMap = new HashMap<>();
 
