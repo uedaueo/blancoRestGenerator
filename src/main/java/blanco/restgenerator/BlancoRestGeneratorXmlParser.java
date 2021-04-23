@@ -174,11 +174,17 @@ public class BlancoRestGeneratorXmlParser {
             this.parseTelegramImplements(elementInterfaceRoot, telegramStructure);
         }
 
-        // 電文定義・インポート
-        final List<BlancoXmlElement> importList = BlancoXmlBindingUtil
-                .getElementsByTagName(argElementSheet,
-                        fBundle.getMeta2xmlTelegramImport());
-        if (!BlancoRestGeneratorUtil.ignoreImport && (importList != null && importList.size() != 0)) {
+        /*
+         * TelegramDefinition import:
+         * prefer definition for java or java only if ignoreImport is true.
+         */
+        List<BlancoXmlElement> importList = BlancoXmlBindingUtil
+                .getElementsByTagName(argElementSheet, "blancotelegramJava-import");
+        if (!BlancoRestGeneratorUtil.ignoreImport && (importList == null || importList.size() == 0)) {
+            importList = BlancoXmlBindingUtil
+                    .getElementsByTagName(argElementSheet, fBundle.getMeta2xmlTelegramImport());
+        }
+        if (importList != null && importList.size() != 0) {
             final BlancoXmlElement elementImportRoot = importList.get(0);
             this.parseTelegramImport(elementImportRoot, telegramStructure);
         }

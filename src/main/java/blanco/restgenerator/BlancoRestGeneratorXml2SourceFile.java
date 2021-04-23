@@ -788,6 +788,13 @@ public class BlancoRestGeneratorXml2SourceFile {
             cgField.getLangDoc().getDescriptionList().add(
                     argFieldStructure.getDescription());
         }
+
+        /* メソッドの annotation を設定します */
+        List annotationList = argFieldStructure.getFieldAnnotationList();
+        if (annotationList != null && annotationList.size() > 0) {
+            cgField.getAnnotationList().addAll(annotationList);
+            System.out.println("/* tueda */ method annotation = " + cgField.getAnnotationList().get(0));
+        }
     }
 
     /**

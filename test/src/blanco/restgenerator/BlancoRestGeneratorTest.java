@@ -57,8 +57,8 @@ public class BlancoRestGeneratorTest {
         inputRestGenerator.setTargetdir("sample/blanco");
         inputRestGenerator.setTargetStyle("maven");
         inputRestGenerator.setVerbose(true);
-//        inputRestGenerator.setIgnoreAnnotation(true);
-//        inputRestGenerator.setIgnoreImport(true);
+        inputRestGenerator.setIgnoreAnnotation(true);
+        inputRestGenerator.setIgnoreImport(true);
 //        inputRestGenerator.setTelegramsOnly(true);
 
         BlancoRestGeneratorProcessImpl imple = new BlancoRestGeneratorProcessImpl();

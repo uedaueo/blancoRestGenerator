@@ -69,14 +69,22 @@
 
             <tableblock name="blancotelegram-import" waitY="2" titleheight="2" rowname="import">
                 <startstring>電文定義・インポート</startstring>
-
                 <tablecolumn name="no">
                     <value>No.</value>
                 </tablecolumn>
                 <tablecolumn name="name">
                     <value>インポートクラス名</value>
                 </tablecolumn>
+            </tableblock>
 
+            <tableblock name="blancotelegramJava-import" waitY="2" titleheight="2" rowname="import">
+                <startstring>電文定義(Java)・インポート</startstring>
+                <tablecolumn name="no">
+                    <value>No.</value>
+                </tablecolumn>
+                <tablecolumn name="name">
+                    <value>インポートクラス名</value>
+                </tablecolumn>
             </tableblock>
 
             <tableblock name="blancotelegram-list" waitY="2" titleheight="3" rowname="field">
