@@ -713,7 +713,7 @@ public class BlancoRestGeneratorXml2SourceFile {
             System.out.println("BlancoRestGeneratorXml2SourceFile: Start create properties : " + argTelegramStructure.getName());
         }
 
-        // A list of telegram definitions.
+        // TelegramDefinition list.
         for (int indexField = 0; indexField < argTelegramStructure.getListField()
                 .size(); indexField++) {
             // Processes each field.

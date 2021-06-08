@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * BlancoValueObject で作成されているObjectの一覧を XML から取得し，保持しておきます
+ * Gets the list of Object created by BlancoValueObject from XML and keeps it.
  *
  * Created by tueda on 15/07/05.
  */
 public class BlancoRestGeneratorUtil {
     /**
-     * ValueObject 用リソースバンドルへのアクセスオブジェクト。
+     * An access object to the resource bundle for ValueObject.
      */
     private final static BlancoRestGeneratorResourceBundle fBundle = new BlancoRestGeneratorResourceBundle();
 
@@ -36,12 +36,12 @@ public class BlancoRestGeneratorUtil {
     };
 
     /**
-     * フィールド名やメソッド名の名前変形を行うかどうか。
+     * Whether to adjust name of fields or methods.
      */
     private boolean fNameAdjust = true;
 
     /**
-     * 自動生成するソースファイルの文字エンコーディング。
+     * Character encoding of auto-generated source files.
      */
     public static String encoding = "UTF-8";
     public static boolean isVerbose = false;
@@ -68,9 +68,9 @@ public class BlancoRestGeneratorUtil {
             System.out.println("BlancoRestGeneratorUtil#processValueObjects : processValueObjects start !");
         }
 
-        /* tmpdir はユニーク */
+        /* tmpdir is unique. */
         String baseTmpdir = input.getTmpdir();
-        /* searchTmpdir はカンマ区切り */
+        /* searchTmpdir is comma separated. */
         String tmpTmpdirs = input.getSearchTmpdir();
         List<String> searchTmpdirList = null;
         if (tmpTmpdirs != null && !tmpTmpdirs.equals(baseTmpdir)) {
@@ -89,7 +89,7 @@ public class BlancoRestGeneratorUtil {
 
     static private void searchTmpdir(String tmpdir) {
 
-        // XML化された中間ファイルから情報を読み込む
+        // Reads information from XML-ized intermediate files.
         final File[] fileMeta3 = new File(tmpdir
                 + BlancoRestGeneratorConstants.OBJECT_SUBDIRECTORY)
                 .listFiles();
@@ -109,8 +109,8 @@ public class BlancoRestGeneratorUtil {
             BlancoValueObjectXmlParser parser = new BlancoValueObjectXmlParser();
 //            parser.setVerbose(this.isVerbose());
             /*
-             * まず始めにすべてのシートを検索して，クラス名とpackage名のリストを作ります．
-             * php形式の定義書では，クラスを指定する際にpackage名が指定されていないからです．
+             * First, it searches all the sheets and make a list of class and package names.
+             * This is because in the php-style definitions, the package name is not specified when specifying class.
              *
              */
             final BlancoValueObjectClassStructure[] structures = parser.parse(fileMeta3[index]);
@@ -182,7 +182,7 @@ public class BlancoRestGeneratorUtil {
                 javaType = "java.lang.Boolean";
             } else
             if ("integer".equalsIgnoreCase(phpType)) {
-                // integer 型は 64 bit に変換する
+                // Converts integer type to 64 bit.
                 javaType = "java.lang.Long";
             } else
             if ("double".equalsIgnoreCase(phpType)) {
@@ -207,25 +207,25 @@ public class BlancoRestGeneratorUtil {
             if ("object".equalsIgnoreCase(phpType)) {
                 javaType = "java.lang.Object";
             } else
-            if ("ArrayList".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+            if ("ArrayList".equals(phpType)) { // Replaces with CanonicalName only if there is an exact match.
                 javaType = "java.util.ArrayList";
             } else
-            if ("List".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+            if ("List".equals(phpType)) { // Replaces with CanonicalName only if there is an exact match.
                 javaType = "java.util.List";
             } else
-            if ("Map".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+            if ("Map".equals(phpType)) { // Replaces with CanonicalName only if there is an exact match.
                 javaType = "java.util.Map";
             } else
-            if ("HashMap".equals(phpType)) { // 完全一致する場合のみ、CanonicalName に置き換える。
+            if ("HashMap".equals(phpType)) { // Replaces with CanonicalName only if there is an exact match.
                 javaType = "java.util.HashMap";
             } else {
-                /* この名前の package を探す */
+                /* Searches for a package with this name. */
                 String packageName = BlancoRestGeneratorUtil.searchPackageBySimpleName(phpType);
                 if (packageName != null) {
                     javaType = packageName + "." + phpType;
                 }
 
-                /* その他はそのまま記述する */
+                /* Others are written as is. */
                 if (isVerbose) {
                     System.out.println("/* tueda */ Unknown php type: " + javaType);
                 }
@@ -235,8 +235,8 @@ public class BlancoRestGeneratorUtil {
     }
 
     static public String searchPackageBySimpleName(String simpleName) {
-        // パッケージ名の置き換えオプションが指定されていれば置き換え
-        // Suffix があればそちらが優先です。
+        // Replaces the package name if the replace package name option is specified.
+        // If there is Suffix, that is the priority.
         String packageName = null;
         BlancoValueObjectClassStructure voStructure = objects.get(simpleName);
         if (voStructure != null) {
