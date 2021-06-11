@@ -18,7 +18,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * Java言語用の生成試験。
+ * Generation test for the Java.
  *
  * @author IGA Tosiki
  * @author tueda
@@ -28,7 +28,7 @@ public class BlancoRestGeneratorTest {
     @Test
     public void testBlancoRestGenerator() {
         /*
-         * まず ValueObject を生成します。
+         * First, creates a ValueObject.
          */
         BlancoValueObjectProcessInput inputValueObject = new BlancoValueObjectProcessInput();
         inputValueObject.setMetadir("meta/objects");
@@ -47,7 +47,7 @@ public class BlancoRestGeneratorTest {
         }
 
         /*
-         * その後、電文と電文処理を生成します。
+         * Then, generates the telegram and the telegram processing.
          */
         BlancoRestGeneratorProcessInput inputRestGenerator = new BlancoRestGeneratorProcessInput();
         inputRestGenerator.setMetadir("meta/api");
