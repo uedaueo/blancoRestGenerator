@@ -438,7 +438,7 @@ public class BlancoRestGeneratorXmlParser {
                 fieldStructure.setFieldAnnotationList(createAnnotaionList(fieldAnnotation));
             }
 
-            // Supports for required (giving NotNull annotation）
+            // Supports for required (giving NotNull annotation)
             fieldStructure.setFieldRequired("true".equals(BlancoXmlBindingUtil
                     .getTextContent(elementList, "fieldRequired")));
             if (fieldStructure.getFieldRequired()) {
