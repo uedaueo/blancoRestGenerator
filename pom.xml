@@ -5,7 +5,7 @@
 	<groupId>blanco.restgenerator</groupId>
 	<artifactId>blanco-restgenerator</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.9</version>
+	<version>0.2.10</version>
 	<name>blanco-restgenerator</name>
 	<url>https://igapyon.github.io/blancofw-maven2</url>
 
@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13</version>
+			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
 
