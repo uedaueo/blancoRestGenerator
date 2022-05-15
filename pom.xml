@@ -5,7 +5,7 @@
 	<groupId>blanco.restgenerator</groupId>
 	<artifactId>blanco-restgenerator</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.10</version>
+	<version>0.2.11</version>
 	<name>blanco-restgenerator</name>
 	<url>https://igapyon.github.io/blancofw-maven2</url>
 
@@ -16,7 +16,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<github.global.server>github</github.global.server>
-		<git.branchName>gh-pages-poi4</git.branchName>
+		<git.branchName>gh-pages-poi5</git.branchName>
 		<git.repositoryOwner>uedaueo</git.repositoryOwner>
 		<git.repositoryName>blancofw-maven2</git.repositoryName>
 		<git.isMerge>true</git.isMerge>
@@ -133,44 +133,21 @@
 			<version>[1.9.7,2.0)</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>4.1.2</version>
-<!--			<version>3.13</version>-->
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>4.1.2</version>
-<!--			<version>3.13</version>-->
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>4.1.2</version>
-<!--			<version>3.13</version>-->
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<version>4.1.2</version>
-<!--			<version>3.13</version>-->
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans</artifactId>
-			<version>3.1.0</version>
-			<!--			            <version>2.6.0</version>-->
-		</dependency>
-
 	</dependencies>
+
+	<!-- ref: http://maven.apache.org/guides/mini/guide-central-repository-upload.html -->
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.opensource.org/licenses/lgpl-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<build>
 		<plugins>
@@ -186,7 +163,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancoanttask" classname="blanco.anttask.task.BlancoAntTaskTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancoanttask" classname="blanco.anttask.task.BlancoAntTaskTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancoanttask metadir="meta/program" encoding="${project.build.sourceEncoding}" />
 							</target>
@@ -201,7 +178,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancoconstants" classname="blanco.constants.task.BlancoConstantsTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancoconstants" classname="blanco.constants.task.BlancoConstantsTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancoconstants metadir="meta/program" encoding="${project.build.sourceEncoding}" />
 							</target>
@@ -216,7 +193,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancomessage" classname="blanco.message.task.BlancoMessageTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancomessage" classname="blanco.message.task.BlancoMessageTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancomessage metadir="meta/program" encoding="${project.build.sourceEncoding}" />
 							</target>
@@ -231,7 +208,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancometa2xml" classname="blanco.meta2xml.task.BlancoMeta2XmlTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancometa2xml" classname="blanco.meta2xml.task.BlancoMeta2XmlTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancometa2xml metadir="meta/program" encoding="${project.build.sourceEncoding}" />
 							</target>
@@ -246,7 +223,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancoresourcebundle" classname="blanco.resourcebundle.task.BlancoResourceBundleTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancoresourcebundle" classname="blanco.resourcebundle.task.BlancoResourceBundleTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancoresourcebundle metadir="meta/program" encoding="${project.build.sourceEncoding}" />
 							</target>
@@ -261,7 +238,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancovalueobject" classname="blanco.valueobject.task.BlancoValueObjectTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancovalueobject" classname="blanco.valueobject.task.BlancoValueObjectTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancovalueobject metadir="meta/program" encoding="${project.build.sourceEncoding}" />
 							</target>
@@ -276,9 +253,9 @@
 						<phase>generate-test-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="blancovalueobject" classname="blanco.valueobject.task.BlancoValueObjectTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancovalueobject" classname="blanco.valueobject.task.BlancoValueObjectTask" classpathref="maven.compile.classpath">
 								</taskdef>
-								<taskdef name="blancorestgenerator" classname="blanco.restgenerator.task.BlancoRestGeneratorTask" classpathref="maven.runtime.classpath">
+								<taskdef name="blancorestgenerator" classname="blanco.restgenerator.task.BlancoRestGeneratorTask" classpathref="maven.compile.classpath">
 								</taskdef>
 								<blancovalueobject metadir="meta/objects" encoding="${project.build.sourceEncoding}" sheetType="php" tmpdir="tmpTest" targetdir="sample/blanco" targetStyle="maven" verbose="true" />
 								<blancorestgenerator metadir="meta/api" encoding="${project.build.sourceEncoding}" sheetType="php" tmpdir="tmpTest" targetdir="sample/blanco" targetStyle="maven" verbose="true" />
