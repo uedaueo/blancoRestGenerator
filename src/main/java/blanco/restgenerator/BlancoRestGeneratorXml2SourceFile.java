@@ -614,7 +614,12 @@ public class BlancoRestGeneratorXml2SourceFile {
             location = overrideLocation;
         }
         String serviceId = argProcessStructure.getServiceId();
-        String locationId = location + "/" + serviceId;
+        if (BlancoStringUtil.null2Blank(location).length() > 0) {
+            location += "/";
+        } else {
+            location = "";
+        }
+        String locationId = location + serviceId;
 
         BlancoCgMethod cgMethod = fCgFactory.createMethod("getLocationId", "The URL to call this API.");
         fCgClass.getMethodList().add(cgMethod);
