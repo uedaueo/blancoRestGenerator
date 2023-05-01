@@ -5,7 +5,7 @@
 	<groupId>blanco.restgenerator</groupId>
 	<artifactId>blanco-restgenerator</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.12</version>
+	<version>3.0.0</version>
 	<name>blanco-restgenerator</name>
 	<url>https://igapyon.github.io/blancofw-maven2</url>
 
@@ -14,7 +14,7 @@
 		<!-- set source as UTF-8 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>11</maven.compiler.target>
 		<github.global.server>github</github.global.server>
 		<git.branchName>gh-pages-poi5</git.branchName>
 		<git.repositoryOwner>uedaueo</git.repositoryOwner>
@@ -52,11 +52,11 @@
 	</repositories>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.9.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -130,7 +130,7 @@
 		<dependency>
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
-			<version>[1.9.7,2.0)</version>
+			<version>1.10.13</version>
 		</dependency>
 
 	</dependencies>
@@ -155,7 +155,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
+				<version>3.1.0</version>
 				<executions>
 
 					<execution>
@@ -290,12 +290,12 @@
 					<dependency>
 						<groupId>commons-net</groupId>
 						<artifactId>commons-net</artifactId>
-						<version>1.4.1</version>
+						<version>3.9.0</version>
 					</dependency>
 					<dependency>
 						<groupId>org.apache.ant</groupId>
 						<artifactId>ant-commons-net</artifactId>
-						<version>1.8.1</version>
+						<version>1.10.13</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -304,7 +304,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.12</version>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -321,14 +321,13 @@
 				</executions>
 			</plugin>
 
-			<!-- compile as 1.8 compatible -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.11.0</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 					<excludes>
 						<exclude>blanco/sample/**/*</exclude>
 					</excludes>
@@ -339,7 +338,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>

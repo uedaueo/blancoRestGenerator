@@ -105,15 +105,6 @@ public class BlancoRestGeneratorXml2SourceFile {
     private boolean fNameAdjust = true;
 
     /**
-     * Base class for request telegrams.
-     */
-    private String inputTelegramBase = null;
-    /**
-     * Base class for response telegrams.
-     */
-    private String outputTelegramBase = null;
-
-    /**
      * Character encoding of auto-generated source files.
      */
     private String fEncoding = null;
@@ -252,7 +243,7 @@ public class BlancoRestGeneratorXml2SourceFile {
         }
 
         /* Sets the annotation for the class. */
-        List annotationList = argProcessStructure.getAnnotationList();
+        List<String> annotationList = argProcessStructure.getAnnotationList();
         if (annotationList != null && annotationList.size() > 0) {
             fCgClass.getAnnotationList().addAll(argProcessStructure.getAnnotationList());
             /* tueda DEBUG */
@@ -444,7 +435,6 @@ public class BlancoRestGeneratorXml2SourceFile {
         String requestSubId = input.getName();
         String requestId = packageNameIn + "." + requestSubId;
         String responseSubId = output.getName();
-        String responseId = packageNameOut + "." + responseSubId;
 
         cgExecutorMethod.getParameterList().add(
                 fCgFactory.createParameter("arg" + requestSubId, argSuperRequestId,

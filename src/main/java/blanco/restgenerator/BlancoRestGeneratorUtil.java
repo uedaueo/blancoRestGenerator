@@ -1,16 +1,19 @@
 package blanco.restgenerator;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import blanco.cg.BlancoCgSupportedLang;
 import blanco.commons.util.BlancoStringUtil;
 import blanco.restgenerator.resourcebundle.BlancoRestGeneratorResourceBundle;
 import blanco.restgenerator.task.valueobject.BlancoRestGeneratorProcessInput;
-import blanco.valueobject.BlancoValueObjectUtil;
 import blanco.valueobject.BlancoValueObjectXmlParser;
 import blanco.valueobject.valueobject.BlancoValueObjectClassStructure;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 /**
  * Gets the list of Object created by BlancoValueObject from XML and keeps it.
@@ -34,11 +37,6 @@ public class BlancoRestGeneratorUtil {
         {put(fBundle.getMeta2xmlElementCommonPython(), BlancoCgSupportedLang.KOTLIN);}
         {put(fBundle.getMeta2xmlElementCommonPython(), BlancoCgSupportedLang.TS);}
     };
-
-    /**
-     * Whether to adjust name of fields or methods.
-     */
-    private boolean fNameAdjust = true;
 
     /**
      * Character encoding of auto-generated source files.

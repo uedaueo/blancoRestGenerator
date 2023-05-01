@@ -9,13 +9,14 @@
  */
 package blanco.restgenerator;
 
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
 import blanco.restgenerator.task.BlancoRestGeneratorProcessImpl;
 import blanco.restgenerator.task.valueobject.BlancoRestGeneratorProcessInput;
 import blanco.valueobject.task.BlancoValueObjectProcessImpl;
 import blanco.valueobject.task.valueobject.BlancoValueObjectProcessInput;
-import org.junit.Test;
-
-import java.io.IOException;
 
 /**
  * Generation test for the Java.
